@@ -1,7 +1,7 @@
 <html lang="pt-BR">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Correção de Cartões da Mega-Sena</title>
+    <title>CorreÃ§Ã£o de CartÃµes da Mega-Sena</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         /* Remover setas dos campos de entrada */
@@ -10,11 +10,11 @@
             -webkit-appearance: none;
             margin: 0;
         }
-        /* Estilo para evitar quebra de colunas em dispositivos móveis */
+        /* Estilo para evitar quebra de colunas em dispositivos mÃ³veis */
         .no-wrap {
             white-space: nowrap;
         }
-        /* Estilo para ajustar colunas em dispositivos móveis */
+        /* Estilo para ajustar colunas em dispositivos mÃ³veis */
         @media (max-width: 640px) {
             .table-auto th, .table-auto td {
                 padding: 0.5rem;
@@ -35,11 +35,11 @@
 <body class="bg-gray-100 p-4">
     <div class="max-w-4xl mx-auto bg-white p-4 border border-gray-300 rounded shadow-md">
         <div class="text-center bg-green-500 py-3 text-white rounded mb-4">
-            <h1 class="text-2xl font-bold">Correção de Cartões da Mega-Sena</h1>
+            <h1 class="text-2xl font-bold">CorreÃ§Ã£o de CartÃµes da Mega-Sena</h1>
         </div>
 
         <div class="mb-4">
-            <h2 class="text-lg font-semibold">Digite os números sorteados:</h2>
+            <h2 class="text-lg font-semibold">Digite os nÃºmeros sorteados:</h2>
             <div class="flex space-x-2 mt-2">
                 <input type="number" id="result1" class="w-12 h-12 text-center border rounded" maxlength="2" placeholder="00" oninput="moveFocus(this, 'result2')" onkeydown="moveBack(this, 'result1')">
                 <input type="number" id="result2" class="w-12 h-12 text-center border rounded" maxlength="2" placeholder="00" oninput="moveFocus(this, 'result3')" onkeydown="moveBack(this, 'result1')">
@@ -61,7 +61,7 @@
                 <thead>
                     <tr class="bg-gray-200">
                         <th class="border px-4 py-2 text-center no-wrap">Participantes</th>
-                        <th class="border px-4 py-2 text-center no-wrap">Números</th>
+                        <th class="border px-4 py-2 text-center no-wrap">NÃºmeros</th>
                         <th class="border px-4 py-2 text-center no-wrap">Acertos</th>
                     </tr>
                 </thead>
@@ -97,12 +97,12 @@
                         <td class="border px-4 py-2 text-center no-wrap acert-count">0</td>
                     </tr>
                     <tr>
-                        <td class="border px-4 py-2 text-left pl-16 no-wrap">André Del - 1</td>
+                        <td class="border px-4 py-2 text-left pl-16 no-wrap">AndrÃ© Del - 1</td>
                         <td class="border px-4 py-2 text-center no-wrap">19, 31, 42, 45, 46, 59</td>
                         <td class="border px-4 py-2 text-center no-wrap acert-count">0</td>
                     </tr>
                     <tr>
-                        <td class="border px-4 py-2 text-left pl-16 no-wrap">André Del - 2</td>
+                        <td class="border px-4 py-2 text-left pl-16 no-wrap">AndrÃ© Del - 2</td>
                         <td class="border px-4 py-2 text-center no-wrap">08, 09, 16, 44, 40, 55</td>
                         <td class="border px-4 py-2 text-center no-wrap acert-count">0</td>
                     </tr>
@@ -174,7 +174,7 @@
             );
 
             if (results.some(isNaN)) {
-                alert("Por favor, insira todos os 6 números do resultado!");
+                alert("Por favor, insira todos os 6 nÃºmeros do resultado!");
                 return;
             }
 
@@ -185,8 +185,8 @@
                 { name: "Alex Israel - 2", numbers: [] }, // surpresinha
                 { name: "Aline Nascimento 1", numbers: [7, 12, 23, 37, 44, 59] },
                 { name: "Aline Nascimento 2", numbers: [11, 20, 32, 45, 50, 55] },
-                { name: "André Del - 1", numbers: [19, 31, 42, 45, 46, 59] },
-                { name: "André Del - 2", numbers: [8, 9, 16, 44, 40, 55] },
+                { name: "AndrÃ© Del - 1", numbers: [19, 31, 42, 45, 46, 59] },
+                { name: "AndrÃ© Del - 2", numbers: [8, 9, 16, 44, 40, 55] },
                 { name: "Anna Cabral - 1", numbers: [2, 5, 14, 16, 18, 25] },
                 { name: "Anna Cabral - 2", numbers: [12, 14, 20, 36, 42, 58] },
                 { name: "Carla Muniz - 1", numbers: [4, 14, 21, 23, 27, 57] },
@@ -226,8 +226,8 @@
                 { name: "Alex Israel - 2", numbers: [] }, // surpresinha
                 { name: "Aline Nascimento 1", numbers: [7, 12, 23, 37, 44, 59] },
                 { name: "Aline Nascimento 2", numbers: [11, 20, 32, 45, 50, 55] },
-                { name: "André Del - 1", numbers: [19, 31, 42, 45, 46, 59] },
-                { name: "André Del - 2", numbers: [8, 9, 16, 44, 40, 55] },
+                { name: "AndrÃ© Del - 1", numbers: [19, 31, 42, 45, 46, 59] },
+                { name: "AndrÃ© Del - 2", numbers: [8, 9, 16, 44, 40, 55] },
                 { name: "Anna Cabral - 1", numbers: [2, 5, 14, 16, 18, 25] },
                 { name: "Anna Cabral - 2", numbers: [12, 14, 20, 36, 42, 58] },
                 { name: "Carla Muniz - 1", numbers: [4, 14, 21, 23, 27, 57] },
@@ -244,13 +244,15 @@
             participants.forEach((participant) => {
                 const row = document.createElement("tr");
                 row.innerHTML = `
+                     <tr>
                     <td class="border px-4 py-2 text-left pl-16 no-wrap">${participant.name}</td>
                     <td class="border px-4 py-2 text-center no-wrap">${participant.numbers.length > 0 ? participant.numbers.join(", ") : "surpresinha"}</td>
-                    <td class="border px-4 py-2 text-center no-wrap acert-count">0</td>
-                `;
-                tbody.appendChild(row);
-            });
-        }
-    </script>
+                    <td class="border px-4 py-2 text-center no-wrap">0</td>
+                </tr>
+            `;
+            tbody.appendChild(row);
+        });
+    }
+</script>
 </body>
 </html>
