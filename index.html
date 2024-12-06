@@ -1,0 +1,256 @@
+<html lang="pt-BR">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Correção de Cartões da Mega-Sena</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Remover setas dos campos de entrada */
+        input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        /* Estilo para evitar quebra de colunas em dispositivos móveis */
+        .no-wrap {
+            white-space: nowrap;
+        }
+        /* Estilo para ajustar colunas em dispositivos móveis */
+        @media (max-width: 640px) {
+            .table-auto th, .table-auto td {
+                padding: 0.5rem;
+                font-size: 0.75rem;
+            }
+            .table-auto th:nth-child(1), .table-auto td:nth-child(1) {
+                width: 40%;
+            }
+            .table-auto th:nth-child(2), .table-auto td:nth-child(2) {
+                width: 40%;
+            }
+            .table-auto th:nth-child(3), .table-auto td:nth-child(3) {
+                width: 20%;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-100 p-4">
+    <div class="max-w-4xl mx-auto bg-white p-4 border border-gray-300 rounded shadow-md">
+        <div class="text-center bg-green-500 py-3 text-white rounded mb-4">
+            <h1 class="text-2xl font-bold">Correção de Cartões da Mega-Sena</h1>
+        </div>
+
+        <div class="mb-4">
+            <h2 class="text-lg font-semibold">Digite os números sorteados:</h2>
+            <div class="flex space-x-2 mt-2">
+                <input type="number" id="result1" class="w-12 h-12 text-center border rounded" maxlength="2" placeholder="00" oninput="moveFocus(this, 'result2')" onkeydown="moveBack(this, 'result1')">
+                <input type="number" id="result2" class="w-12 h-12 text-center border rounded" maxlength="2" placeholder="00" oninput="moveFocus(this, 'result3')" onkeydown="moveBack(this, 'result1')">
+                <input type="number" id="result3" class="w-12 h-12 text-center border rounded" maxlength="2" placeholder="00" oninput="moveFocus(this, 'result4')" onkeydown="moveBack(this, 'result2')">
+                <input type="number" id="result4" class="w-12 h-12 text-center border rounded" maxlength="2" placeholder="00" oninput="moveFocus(this, 'result5')" onkeydown="moveBack(this, 'result3')">
+                <input type="number" id="result5" class="w-12 h-12 text-center border rounded" maxlength="2" placeholder="00" oninput="moveFocus(this, 'result6')" onkeydown="moveBack(this, 'result4')">
+                <input type="number" id="result6" class="w-12 h-12 text-center border rounded" maxlength="2" placeholder="00" oninput="moveFocus(this, 'result6')" onkeydown="moveBack(this, 'result5')">
+            </div>
+            <button onclick="checkResults()" class="bg-blue-600 text-white px-4 py-2 mt-4 rounded hover:bg-blue-700">
+                Verificar Acertos
+            </button>
+            <button onclick="resetTable()" class="bg-gray-600 text-white px-4 py-2 mt-4 rounded hover:bg-gray-700 ml-2">
+                Ver Tabela
+            </button>
+        </div>
+
+        <div class="overflow-x-auto">
+            <table class="table-auto w-full border-collapse border border-gray-300">
+                <thead>
+                    <tr class="bg-gray-200">
+                        <th class="border px-4 py-2 text-center no-wrap">Participantes</th>
+                        <th class="border px-4 py-2 text-center no-wrap">Números</th>
+                        <th class="border px-4 py-2 text-center no-wrap">Acertos</th>
+                    </tr>
+                </thead>
+                <tbody id="participants">
+                    <tr>
+                        <td class="border px-4 py-2 text-left pl-16 no-wrap">Alexnaldo - 1</td>
+                        <td class="border px-4 py-2 text-center no-wrap">01, 06, 17, 24, 25, 35</td>
+                        <td class="border px-4 py-2 text-center no-wrap acert-count">0</td>
+                    </tr>
+                    <tr>
+                        <td class="border px-4 py-2 text-left pl-16 no-wrap">Alexnaldo - 2</td>
+                        <td class="border px-4 py-2 text-center no-wrap">02, 13, 19, 29, 36, 50</td>
+                        <td class="border px-4 py-2 text-center no-wrap acert-count">0</td>
+                    </tr>
+                    <tr>
+                        <td class="border px-4 py-2 text-left pl-16 no-wrap">Alex Israel - 1</td>
+                        <td class="border px-4 py-2 text-center no-wrap">surpresinha</td>
+                        <td class="border px-4 py-2 text-center no-wrap acert-count">0</td>
+                    </tr>
+                    <tr>
+                        <td class="border px-4 py-2 text-left pl-16 no-wrap">Alex Israel - 2</td>
+                        <td class="border px-4 py-2 text-center no-wrap">surpresinha</td>
+                        <td class="border px-4 py-2 text-center no-wrap acert-count">0</td>
+                    </tr>
+                    <tr>
+                        <td class="border px-4 py-2 text-left pl-16 no-wrap">Aline Nascimento 1</td>
+                        <td class="border px-4 py-2 text-center no-wrap">07, 12, 23, 37, 44, 59</td>
+                        <td class="border px-4 py-2 text-center no-wrap acert-count">0</td>
+                    </tr>
+                    <tr>
+                        <td class="border px-4 py-2 text-left pl-16 no-wrap">Aline Nascimento 2</td>
+                        <td class="border px-4 py-2 text-center no-wrap">11, 20, 32, 45, 50, 55</td>
+                        <td class="border px-4 py-2 text-center no-wrap acert-count">0</td>
+                    </tr>
+                    <tr>
+                        <td class="border px-4 py-2 text-left pl-16 no-wrap">André Del - 1</td>
+                        <td class="border px-4 py-2 text-center no-wrap">19, 31, 42, 45, 46, 59</td>
+                        <td class="border px-4 py-2 text-center no-wrap acert-count">0</td>
+                    </tr>
+                    <tr>
+                        <td class="border px-4 py-2 text-left pl-16 no-wrap">André Del - 2</td>
+                        <td class="border px-4 py-2 text-center no-wrap">08, 09, 16, 44, 40, 55</td>
+                        <td class="border px-4 py-2 text-center no-wrap acert-count">0</td>
+                    </tr>
+                    <tr>
+                        <td class="border px-4 py-2 text-left pl-16 no-wrap">Anna Cabral - 1</td>
+                        <td class="border px-4 py-2 text-center no-wrap">02, 05, 14, 16, 18, 25</td>
+                        <td class="border px-4 py-2 text-center no-wrap acert-count">0</td>
+                    </tr>
+                    <tr>
+                        <td class="border px-4 py-2 text-left pl-16 no-wrap">Anna Cabral - 2</td>
+                        <td class="border px-4 py-2 text-center no-wrap">12, 14, 20, 36, 42, 58</td>
+                        <td class="border px-4 py-2 text-center no-wrap acert-count">0</td>
+                    </tr>
+                    <tr>
+                        <td class="border px-4 py-2 text-left pl-16 no-wrap">Carla Muniz - 1</td>
+                        <td class="border px-4 py-2 text-center no-wrap">04, 14, 21, 23, 27, 57</td>
+                        <td class="border px-4 py-2 text-center no-wrap acert-count">0</td>
+                    </tr>
+                    <tr>
+                        <td class="border px-4 py-2 text-left pl-16 no-wrap">Carla Muniz - 2</td>
+                        <td class="border px-4 py-2 text-center no-wrap">10, 19, 20, 37, 38, 40</td>
+                        <td class="border px-4 py-2 text-center no-wrap acert-count">0</td>
+                    </tr>
+                    <tr>
+                        <td class="border px-4 py-2 text-left pl-16 no-wrap">Carlos Antonio - 1</td>
+                        <td class="border px-4 py-2 text-center no-wrap">02, 05, 07, 18, 23, 33</td>
+                        <td class="border px-4 py-2 text-center no-wrap acert-count">0</td>
+                    </tr>
+                    <tr>
+                        <td class="border px-4 py-2 text-left pl-16 no-wrap">Carlos Antonio - 2</td>
+                        <td class="border px-4 py-2 text-center no-wrap">07, 13, 18, 23, 45, 56</td>
+                        <td class="border px-4 py-2 text-center no-wrap acert-count">0</td>
+                    </tr>
+                    <tr>
+                        <td class="border px-4 py-2 text-left pl-16 no-wrap">Carlos Bruno - 1</td>
+                        <td class="border px-4 py-2 text-center no-wrap">01, 02, 04, 07, 19, 59</td>
+                        <td class="border px-4 py-2 text-center no-wrap acert-count">0</td>
+                    </tr>
+                    <tr>
+                        <td class="border px-4 py-2 text-left pl-16 no-wrap">Carlos Bruno - 2</td>
+                        <td class="border px-4 py-2 text-center no-wrap">01, 08, 15, 20, 48, 52</td>
+                        <td class="border px-4 py-2 text-center no-wrap acert-count">0</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <footer class="text-center mt-8 bg-gray-200 py-2 rounded">
+            <p>Desenvolvido por Ruan Leite - 2024</p>
+        </footer>
+    </div>
+
+    <script>
+        function moveFocus(current, nextFieldId) {
+            if (current.value.length >= 2) {
+                document.getElementById(nextFieldId).focus();
+            }
+        }
+
+        function moveBack(current, prevFieldId) {
+            if (current.value.length === 0 && event.key === "Backspace") {
+                document.getElementById(prevFieldId).focus();
+            }
+        }
+
+        function checkResults() {
+            const results = Array.from({ length: 6 }, (_, i) => 
+                parseInt(document.getElementById(`result${i + 1}`).value, 10)
+            );
+
+            if (results.some(isNaN)) {
+                alert("Por favor, insira todos os 6 números do resultado!");
+                return;
+            }
+
+            const participants = [
+                { name: "Alexnaldo - 1", numbers: [1, 6, 17, 24, 25, 35] },
+                { name: "Alexnaldo - 2", numbers: [2, 13, 19, 29, 36, 50] },
+                { name: "Alex Israel - 1", numbers: [] }, // surpresinha
+                { name: "Alex Israel - 2", numbers: [] }, // surpresinha
+                { name: "Aline Nascimento 1", numbers: [7, 12, 23, 37, 44, 59] },
+                { name: "Aline Nascimento 2", numbers: [11, 20, 32, 45, 50, 55] },
+                { name: "André Del - 1", numbers: [19, 31, 42, 45, 46, 59] },
+                { name: "André Del - 2", numbers: [8, 9, 16, 44, 40, 55] },
+                { name: "Anna Cabral - 1", numbers: [2, 5, 14, 16, 18, 25] },
+                { name: "Anna Cabral - 2", numbers: [12, 14, 20, 36, 42, 58] },
+                { name: "Carla Muniz - 1", numbers: [4, 14, 21, 23, 27, 57] },
+                { name: "Carla Muniz - 2", numbers: [10, 19, 20, 37, 38, 40] },
+                { name: "Carlos Antonio - 1", numbers: [2, 5, 7, 18, 23, 33] },
+                { name: "Carlos Antonio - 2", numbers: [7, 13, 18, 23, 45, 56] },
+                { name: "Carlos Bruno - 1", numbers: [1, 2, 4, 7, 19, 59] },
+                { name: "Carlos Bruno - 2", numbers: [1, 8, 15, 20, 48, 52] },
+            ];
+
+            const tbody = document.getElementById("participants");
+            tbody.innerHTML = "";
+
+            participants.forEach((participant) => {
+                const acertos = participant.numbers.filter((num) => results.includes(num));
+                if (acertos.length > 0) {
+                    const highlightedNumbers = participant.numbers.map(num => 
+                        results.includes(num) ? `<span class="text-green-600 font-bold">${num}</span>` : num
+                    ).join(", ");
+                    
+                    const row = document.createElement("tr");
+                    row.innerHTML = `
+                        <td class="border px-4 py-2 text-left pl-16 no-wrap">${participant.name}</td>
+                        <td class="border px-4 py-2 text-center no-wrap">${participant.numbers.length > 0 ? highlightedNumbers : "surpresinha"}</td>
+                        <td class="border px-4 py-2 text-center no-wrap">${acertos.length}</td>
+                    `;
+                    tbody.appendChild(row);
+                }
+            });
+        }
+
+        function resetTable() {
+            const participants = [
+                { name: "Alexnaldo - 1", numbers: [1, 6, 17, 24, 25, 35] },
+                { name: "Alexnaldo - 2", numbers: [2, 13, 19, 29, 36, 50] },
+                { name: "Alex Israel - 1", numbers: [] }, // surpresinha
+                { name: "Alex Israel - 2", numbers: [] }, // surpresinha
+                { name: "Aline Nascimento 1", numbers: [7, 12, 23, 37, 44, 59] },
+                { name: "Aline Nascimento 2", numbers: [11, 20, 32, 45, 50, 55] },
+                { name: "André Del - 1", numbers: [19, 31, 42, 45, 46, 59] },
+                { name: "André Del - 2", numbers: [8, 9, 16, 44, 40, 55] },
+                { name: "Anna Cabral - 1", numbers: [2, 5, 14, 16, 18, 25] },
+                { name: "Anna Cabral - 2", numbers: [12, 14, 20, 36, 42, 58] },
+                { name: "Carla Muniz - 1", numbers: [4, 14, 21, 23, 27, 57] },
+                { name: "Carla Muniz - 2", numbers: [10, 19, 20, 37, 38, 40] },
+                { name: "Carlos Antonio - 1", numbers: [2, 5, 7, 18, 23, 33] },
+                { name: "Carlos Antonio - 2", numbers: [7, 13, 18, 23, 45, 56] },
+                { name: "Carlos Bruno - 1", numbers: [1, 2, 4, 7, 19, 59] },
+                { name: "Carlos Bruno - 2", numbers: [1, 8, 15, 20, 48, 52] },
+            ];
+
+            const tbody = document.getElementById("participants");
+            tbody.innerHTML = "";
+
+            participants.forEach((participant) => {
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                    <td class="border px-4 py-2 text-left pl-16 no-wrap">${participant.name}</td>
+                    <td class="border px-4 py-2 text-center no-wrap">${participant.numbers.length > 0 ? participant.numbers.join(", ") : "surpresinha"}</td>
+                    <td class="border px-4 py-2 text-center no-wrap acert-count">0</td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+    </script>
+</body>
+</html>
