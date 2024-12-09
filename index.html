@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -65,9 +66,9 @@
                         <th class="border px-4 py-2 text-center no-wrap">Acertos</th>
                     </tr>
                 </thead>
-                                <tbody id="participants">
+                          <tbody id="participants">
                     <tr>
-                        <td class="border px-4 py-2 text-left pl-16 no-wrap">Alexnal do - 1</td>
+                        <td class="border px-4 py-2 text-left pl-16 no-wrap">Alexnaldo - 1</td>
                         <td class="border px-4 py-2 text-center no-wrap">01, 06, 17, 24, 25, 35</td>
                         <td class="border px-4 py-2 text-center no-wrap acert-count">0</td>
                     </tr>
@@ -407,6 +408,25 @@
                         <td class="border px-4 py-2 text-center no-wrap">07, 18, 34, 37, 44, 45</td>
                         <td class="border px-4 py-2 text-center no-wrap acert-count">0</td>
                     </tr>
+
+
+
+ <td class="border px-4 py-2 text-left pl-16 no-wrap">Henrique Bartal-1</td>
+                        <td class="border px-4 py-2 text-center no-wrap">01, 25, 31, 33, 45, 55</td>
+                        <td class="border px-4 py-2 text-center no-wrap acert-count">0</td>
+                    </tr>
+
+                    <td class="border px-4 py-2 text-left pl-16 no-wrap">Henrique Bartal-2</td>
+                        <td class="border px-4 py-2 text-center no-wrap">12, 20, 22, 28, 42, 44</td>
+                        <td class="border px-4 py-2 text-center no-wrap acert-count">0</td>
+                    </tr>
+
+
+
+
+
+
+
                     <tr>
                         <td class="border px-4 py-2 text-left pl-16 no-wrap">Igor F - Alexnaldo - 1</td>
                         <td class="border px-4 py-2 text-center no-wrap">07, 10, 38, 40, 49, 57</td>
@@ -1072,7 +1092,7 @@
                 return;
             }
 
-            const participants = [
+             const participants = [
                 { name: "Alexnaldo - 1", numbers: [1, 6, 17, 24, 25, 35] },
                 { name: "Alexnaldo - 2", numbers: [2, 13, 19, 29, 36, 50] },
                 { name: "Alex Israel - 1", numbers: [13, 22, 26, 35, 36, 45] },
@@ -1147,6 +1167,8 @@
                 { name: "Geohanna - 2", numbers: [21, 53, 12, 27, 3, 25] },
                 { name: "Gerson Junior - 1", numbers: [5, 7, 8, 19, 23, 24] },
                 { name: "Gerson Junior - 2", numbers: [7, 18, 34, 37, 44, 45] },
+                { name: "Henrique Bartal-1", numbers: [1, 25, 31, 33, 45, 55] },
+                { name: "Henrique Bartal-2", numbers: [12, 20, 22, 28, 42, 44] },
                 { name: "Igor F - Alexnaldo - 1", numbers: [7, 10, 38, 40, 49, 57] },
                 { name: "Igor F - Alexnaldo - 2", numbers: [5, 6, 10, 20, 30, 43] },
                 { name: "Iraci Leite - 1", numbers: [5, 10, 15, 35, 43, 56] },
@@ -1275,39 +1297,42 @@
                 { name: "Zeca - 2", numbers: [9, 21, 28, 37, 49, 60] },
             ];
 
+            const resultsWithCounts = participants.map(participant => {
+                const acertos = participant.numbers.filter(num => results.includes(num));
+                return { ...participant, acertosCount: acertos.length };
+            });
+
+            // Ordena os participantes pelo número de acertos de forma decrescente
+            resultsWithCounts.sort((a, b) => b.acertosCount - a.acertosCount);
+
             const tbody = document.getElementById("participants");
             tbody.innerHTML = "";
 
-            participants.forEach((participant) => {
-                const acertos = participant.numbers.filter((num) => results.includes(num));
-                const highlightedNumbers = participant.numbers.map(num => 
-                    results.includes(num) ? `<span class="text-green-600 font-bold">${num}</span>` : num
-                ).join(", ");
-                
-                const row = document.createElement("tr");
-                row.innerHTML = `
-                    <td class="border px-4 py-2 text-left pl-16 no-wrap">${participant.name}</td>
-                    <td class="border px-4 py-2 text-center no-wrap">${participant.numbers.length > 0 ? highlightedNumbers : "surpresinha"}</td>
-                    <td class="border px-4 py-2 text-center no-wrap">${acertos.length}</td>
-                `;
-                tbody.appendChild(row);
-            });
-            filterResults();
-        }
-
-        function filterResults() {
-            const rows = document.querySelectorAll("#participants tr");
-            rows.forEach(row => {
-                const acertosCount = parseInt(row.children[2].textContent, 10);
-                if (acertosCount === 0) {
-                    row.style.display = 'none';
+            resultsWithCounts.forEach(participant => {
+                if (participant.acertosCount > 0) {
+                    const highlightedNumbers = participant.numbers.map(num => 
+                        results.includes(num) ? `<span class="text-green-600 font-bold">${num}</span>` : num
+                    ).join(", ");
+                    
+                    const row = document.createElement("tr");
+                    row.innerHTML = `
+                        <td class="border px-4 py-2 text-left pl-16 no-wrap">${participant.name}</td>
+                        <td class="border px-4 py-2 text-center no-wrap">${highlightedNumbers}</td>
+                        <td class="border px-4 py-2 text-center no-wrap">${participant.acertosCount}</td>
+                    `;
+                    tbody.appendChild(row);
                 }
             });
         }
 
         function resetTable() {
+            const tbody = document.getElementById("participants");
+            tbody.innerHTML = "";
+
+            // Recarrega a tabela original
             const participants = [
-                             { name: "Alexnaldo - 1", numbers: [1, 6, 17, 24, 25, 35] },
+                // Lista de participantes e números
+                               { name: "Alexnaldo - 1", numbers: [1, 6, 17, 24, 25, 35] },
                 { name: "Alexnaldo - 2", numbers: [2, 13, 19, 29, 36, 50] },
                 { name: "Alex Israel - 1", numbers: [13, 22, 26, 35, 36, 45] },
                 { name: "Alex Israel - 2", numbers: [17, 39, 43, 49, 51, 57] },
@@ -1381,6 +1406,8 @@
                 { name: "Geohanna - 2", numbers: [21, 53, 12, 27, 3, 25] },
                 { name: "Gerson Junior - 1", numbers: [5, 7, 8, 19, 23, 24] },
                 { name: "Gerson Junior - 2", numbers: [7, 18, 34, 37, 44, 45] },
+                { name: "Henrique Bartal-1", numbers: [1, 25, 31, 33, 45, 55] },
+                { name: "Henrique Bartal-2", numbers: [12, 20, 22, 28, 42, 44] },
                 { name: "Igor F - Alexnaldo - 1", numbers: [7, 10, 38, 40, 49, 57] },
                 { name: "Igor F - Alexnaldo - 2", numbers: [5, 6, 10, 20, 30, 43] },
                 { name: "Iraci Leite - 1", numbers: [5, 10, 15, 35, 43, 56] },
@@ -1509,14 +1536,12 @@
                 { name: "Zeca - 2", numbers: [9, 21, 28, 37, 49, 60] },
             ];
 
-            const tbody = document.getElementById("participants");
-            tbody.innerHTML = "";
 
-            participants.forEach((participant) => {
+            participants.forEach(participant => {
                 const row = document.createElement("tr");
                 row.innerHTML = `
                     <td class="border px-4 py-2 text-left pl-16 no-wrap">${participant.name}</td>
-                    <td class="border px-4 py-2 text-center no-wrap">${participant.numbers.length > 0 ? participant.numbers.join(", ") : "surpresinha"}</td>
+                    <td class="border px-4 py-2 text-center no-wrap">${participant.numbers.join(", ")}</td>
                     <td class="border px-4 py-2 text-center no-wrap">0</td>
                 `;
                 tbody.appendChild(row);
